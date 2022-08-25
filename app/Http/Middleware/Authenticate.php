@@ -23,7 +23,7 @@ class Authenticate extends Middleware
     {
         $jwt = $request->cookie('jwt');
 
-        if($jwt == $request->cookie('jwt'))
+        if($jwt = $request->cookie('jwt'))
         {
             $request->headers->set('Authorization','Bearer '.$jwt);
         }
