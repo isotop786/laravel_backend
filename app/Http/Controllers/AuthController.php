@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         // generating token
-        $jwt = $user->createToken('token')->plainTextToken;
+        $jwt = $user->createToken('token',['admin'])->plainTextToken;
 
         // persisting token to cookie;
         $cookie = cookie('jwt',$jwt, 60 * 24);
