@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Http;
-use Symfony\Component\HttpFoundation\RequestStack;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 
 class AuthController extends Controller
@@ -55,6 +56,16 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return $request->user();
+    }
+
+    // Logout Method
+    public function logout()
+    {
+        $cookie = Cookie::forget('jwt');
+
+        return response([
+            'message' => 'Logout Success',
+        ])->withCookie($cookie);
     }
 
 
