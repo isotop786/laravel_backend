@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class AuthController extends Controller
 {
@@ -45,7 +47,17 @@ class AuthController extends Controller
 
 
         return response([
-            'message' => 'Login Success'
+            'message' => 'Login Success',
+            'token' => $jwt
         ],200)->withCookie($cookie);
     }
+
+    // Getting authenticated users
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+
+
 }
