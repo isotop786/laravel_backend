@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\NonAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'scope-admin' => \App\Http\Middleware\ScopeAdminMiddleware::class,
+        'non-auth' => NonAuth::class,
+
     ];
 }
