@@ -43,4 +43,10 @@ class User extends Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
+
+    public function scopeAmbassadors($query)
+    {
+        // return User::whereIsAdmin(0)->paginate();
+        return $query->where('is_admin',0)->paginate(100);
+    }
 }
