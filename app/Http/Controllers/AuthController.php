@@ -42,16 +42,21 @@ class AuthController extends Controller
 
         $user = Auth::user();
         // generating token
-        $jwt = $user->createToken('token',['admin'])->plainTextToken;
+        if($user->is_admin ==1){
+            $jwt = $user->createToken('token',['admin'])->plainTextToken;
 
-        // persisting token to cookie;
-        $cookie = cookie('jwt',$jwt, 60 * 24);
+            // persisting token to cookie;
+            $cookie = cookie('jwt',$jwt, 60 * 24);
 
-
+            return response([
+                'message' => 'Login Success',
+            ],200)->withCookie($cookie);
+        }
 
         return response([
-            'message' => 'Login Success',
-        ],200)->withCookie($cookie);
+            'message'=>'Unauthorized User'
+        ],401);
+
     }
 
     // Getting authenticated users
