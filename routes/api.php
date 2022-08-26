@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AmbassadorController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,13 @@ Route::prefix('admin')->group(function(){
 
         // product routes
         Route::apiResource('products',ProductController::class);
+
+        // Links routes
+        Route::get('users/{id}/links',[LinkController::class,'index']);
+        Route::get('links',[LinkController::class,'all']);
+
+        // Order Routes
+        Route::get('orders',[OrderController::class,'index']);
     });
 
 });
