@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AmbassadorController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,11 +30,15 @@ Route::prefix('admin')->group(function(){
     });
 
     Route::middleware(['auth:sanctum','scope-admin'])->group(function(){
+        // User's Routes
         Route::get('user',[AuthController::class,'user']);
         Route::post('logout',[AuthController::class,'logout']);
         Route::put('users/info',[AuthController::class,'updateUserInfo']);
         Route::put('users/password',[AuthController::class,'updatePassword']);
         Route::get('ambassadors',[AmbassadorController::class,'index']);
+
+        // product routes
+        Route::apiResource('products',ProductController::class);
     });
 
 });
