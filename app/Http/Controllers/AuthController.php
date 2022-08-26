@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateUserInfoRequest;
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -66,6 +68,26 @@ class AuthController extends Controller
         return response([
             'message' => 'Logout Success',
         ])->withCookie($cookie);
+    }
+
+    // Update User Profile
+    public function updateUserInfo(UpdateUserInfoRequest $request)
+    {
+       $user = $request->user();
+       $user->update($request->only('first_name','last_name','email'));
+
+       return response($user,Response::HTTP_ACCEPTED);
+    }
+
+    // Update User Profile
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+       $user = $request->user();
+       $user->update([
+        'password' => Hash::make($request->input('password'))
+       ]);
+
+       return response($user,Response::HTTP_ACCEPTED);
     }
 
 
